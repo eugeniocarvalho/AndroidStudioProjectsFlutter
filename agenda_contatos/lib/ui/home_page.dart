@@ -3,6 +3,7 @@ import 'package:agendacontatos/helpers/contact_helper.dart';
 import 'package:agendacontatos/ui/contato_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -53,8 +54,8 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: <Widget>[
               Container(
-                width: 80,
-                height: 80,
+                width: 60,
+                height: 60,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -115,7 +116,10 @@ class _HomePageState extends State<HomePage> {
                                 fontSize: 20
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            launch("tel:${contacts[index].phone}");
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                       Padding(
@@ -148,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                             helper.deleteContact(contacts[index].id);
 
                             setState(() {
-                              contacts.removeAt(contacts[index].id);
+                              contacts.removeAt(index);
                               Navigator.pop(context);
                             });
                           },
