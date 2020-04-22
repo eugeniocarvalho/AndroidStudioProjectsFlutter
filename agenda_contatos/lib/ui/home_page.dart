@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+enum OrderOptions { orderaz, orderza }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -28,6 +30,21 @@ class _HomePageState extends State<HomePage> {
         title: Text("Contatos"),
         backgroundColor: Colors.red,
         centerTitle: true,
+        actions: <Widget>[
+          PopupMenuButton<OrderOptions>(
+            itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
+              const PopupMenuItem(
+                child: Text("Ordernar de A-Z"),
+                value: OrderOptions.orderaz,
+              ),
+              const PopupMenuItem(
+                child: Text("Ordernar de Z-A"),
+                value: OrderOptions.orderza,
+              )
+            ],
+            onSelected: _orderList,
+          )
+        ],
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
@@ -61,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                     image: DecorationImage(
                         image: contacts[index].img != null
                             ? FileImage(File(contacts[index].img))
-                            : AssetImage("images/person.png"))),
+                            : AssetImage("images/person.png"), fit: BoxFit.cover)),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 10),
@@ -111,10 +128,7 @@ class _HomePageState extends State<HomePage> {
                         child: FlatButton(
                           child: Text(
                             "Fazer chamada",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20
-                            ),
+                            style: TextStyle(color: Colors.red, fontSize: 20),
                           ),
                           onPressed: () {
                             launch("tel:${contacts[index].phone}");
@@ -127,12 +141,9 @@ class _HomePageState extends State<HomePage> {
                         child: FlatButton(
                           child: Text(
                             "Editar",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20
-                            ),
+                            style: TextStyle(color: Colors.red, fontSize: 20),
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             Navigator.pop(context);
                             _showContactPage(contact: contacts[index]);
                           },
@@ -143,12 +154,9 @@ class _HomePageState extends State<HomePage> {
                         child: FlatButton(
                           child: Text(
                             "Excluir",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20
-                            ),
+                            style: TextStyle(color: Colors.red, fontSize: 20),
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             helper.deleteContact(contacts[index].id);
 
                             setState(() {
@@ -187,5 +195,22 @@ class _HomePageState extends State<HomePage> {
         contacts = list;
       });
     });
+  }
+
+  void _orderList(OrderOptions result) {
+    // ignore: missing_return
+    switch (result) {
+      case OrderOptions.orderaz:
+        contacts.sort((a, b) {
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+        });
+        break;
+      case OrderOptions.orderza:
+        contacts.sort((a, b) {
+          return b.name.toLowerCase().compareTo(a.name.toLowerCase());
+        });
+        break;
+    }
+    setState(() {});
   }
 }

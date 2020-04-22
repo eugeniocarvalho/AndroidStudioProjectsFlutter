@@ -77,7 +77,8 @@ class _ContactPageState extends State<ContactPage> {
                       image: DecorationImage(
                           image: _editingContact.img != null
                               ? FileImage(File(_editingContact.img))
-                              : AssetImage("images/person.png")),
+                              : AssetImage("images/person.png"),
+                          fit: BoxFit.cover),
                     ),
                   ),
                   onTap: () {
