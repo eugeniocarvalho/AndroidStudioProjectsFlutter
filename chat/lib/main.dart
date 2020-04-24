@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
 
   runApp(MyApp());
 
-  Firestore.instance.collection("col").document("doc").setData({"texto": "daniel"});
+  QuerySnapshot snapshot = await Firestore.instance.collection('mensagens').getDocuments();
+  snapshot.documents.forEach((d) {
+    print(d.data);
+  });
 }
 
 class MyApp extends StatelessWidget {
