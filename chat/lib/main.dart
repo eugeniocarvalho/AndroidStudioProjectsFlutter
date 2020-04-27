@@ -7,10 +7,12 @@ void main() async {
 
   runApp(MyApp());
 
-  QuerySnapshot snapshot = await Firestore.instance.collection('mensagens').getDocuments();
+  /*QuerySnapshot snapshot = await Firestore.instance.collection('mensagens').getDocuments();
   snapshot.documents.forEach((d) {
     print(d.data);
   });
+
+   */
 }
 
 class MyApp extends StatelessWidget {
