@@ -106,25 +106,26 @@ class _ChatScreenState extends State<ChatScreen> {
               : 'Chat App'),
           elevation: 0,
           actions: <Widget>[
-            _currentUser != null ? IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  googleSignIn.signOut();
-                  _scaffoldKey.currentState.showSnackBar(
-                      SnackBar(
-                          content: Text("Você saiu com sucesso!")
-                      )
-                  );
-                }
-                ): Container()
+            _currentUser != null
+                ? IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      googleSignIn.signOut();
+                      _scaffoldKey.currentState.showSnackBar(
+                          SnackBar(content: Text("Você saiu com sucesso!")));
+                    })
+                : Container()
           ],
         ),
         body: Column(
           children: <Widget>[
             Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('messages').orderBy('time').snapshots(),
+              stream: Firestore.instance
+                  .collection('messages')
+                  .orderBy('time')
+                  .snapshots(),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -140,8 +141,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemCount: documents.length,
                         reverse: true,
                         itemBuilder: (context, index) {
-                          return ChatMessage(documents[index].data,
-                          documents[index].data['uid'] == _currentUser?.uid);
+                          return ChatMessage(
+                              documents[index].data,
+                              documents[index].data['uid'] ==
+                                  _currentUser?.uid);
                         });
                 }
               },

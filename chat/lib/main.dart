@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-
   runApp(MyApp());
 
   /*QuerySnapshot snapshot = await Firestore.instance.collection('mensagens').getDocuments();
@@ -22,11 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Chat Flutter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        iconTheme: IconThemeData(
-          color: Colors.blueAccent
-        )
-      ),
+          primarySwatch: Colors.blue,
+          iconTheme: IconThemeData(color: Colors.blueAccent)),
       home: ChatScreen(),
     );
   }
