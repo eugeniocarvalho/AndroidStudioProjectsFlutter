@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "908750671528",
+    "firebase_url": "https://loja-virtual-f1859.firebaseio.com",
+    "project_id": "loja-virtual-f1859",
+    "storage_bucket": "loja-virtual-f1859.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908750671528:android:20404a4b7800ccd8debc9d",
+        "android_client_info": {
+          "package_name": "br.com.eugenio.lojavirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908750671528-vo7pm6um92tvt4ir7e8e4799h267c7kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCGwYozQ0_RYLpY02cTc66EJR0SJXJtro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908750671528-vo7pm6um92tvt4ir7e8e4799h267c7kt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
