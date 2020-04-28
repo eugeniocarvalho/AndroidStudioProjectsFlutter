@@ -143,7 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemBuilder: (context, index) {
                           return ChatMessage(
                               documents[index].data,
-                              documents[index].data['uid'] ==
+                              documents[index].data['uid']  ==
                                   _currentUser?.uid);
                         });
                 }
