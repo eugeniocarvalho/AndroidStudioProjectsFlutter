@@ -28,8 +28,12 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       top: 8,
                       left: 0,
-                      child: Text("Flutter's\nClothing",
-                        style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                      child: Text(
+                        "Flutter's\nClothing",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Positioned(
@@ -38,23 +42,22 @@ class CustomDrawer extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Olá,',
+                          Text(
+                            'Olá,',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                            ),
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
-                            child: Text('Entre ou cadastre-se >',
+                            child: Text(
+                              'Entre ou cadastre-se >',
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Colors.lightBlueAccent,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            onTap: (){
-
-                            },
+                            onTap: () {},
                           )
                         ],
                       ),
