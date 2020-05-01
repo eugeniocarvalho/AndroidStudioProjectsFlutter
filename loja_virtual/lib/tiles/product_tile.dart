@@ -41,10 +41,12 @@ class ProductTile extends StatelessWidget {
                       )
                     ],
                   ),
-                ))
+                )
+            )
           ],
-        ),
-      ),
+        ):
+            Row()
+      )
     );
   }
 }
