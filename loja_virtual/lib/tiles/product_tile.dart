@@ -3,7 +3,6 @@ import 'package:flutter/painting.dart';
 import 'package:lojavirtual/datas/product_data.dart';
 
 class ProductTile extends StatelessWidget {
-
   final ProductData product;
   final String type;
 
@@ -12,41 +11,72 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: Card(
-        child: type == 'grid' ?
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 0.8,
-              child: Image.network(
-                product.images[0],
-                fit: BoxFit.cover,
-              ),
-            ),
-            Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProducScreen(product)))
+        },
+        child: Card(
+            child: type == 'grid'
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        product.title,
-                        style: TextStyle(fontWeight: FontWeight.w500
+                      AspectRatio(
+                        aspectRatio: 0.8,
+                        child: Image.network(
+                          product.images[0],
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      Text('R\$ ${product.price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
-                      )
+                      Expanded(
+                          child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              product.title,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              'R\$ ${product.price.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ))
                     ],
-                  ),
-                )
-            )
-          ],
-        ):
-            Row()
-      )
-    );
+                  )
+                : Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Image.network(
+                          product.images[0],
+                          fit: BoxFit.cover,
+                          height: 265,
+                        ),
+                      ),
+                      Flexible(
+                          flex: 1,
+                          child: Container(
+                              padding: EdgeInsets.all(8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    product.title,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    'R\$ ${product.price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              )))
+                    ],
+                  )));
   }
 }
