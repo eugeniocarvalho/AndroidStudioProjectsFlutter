@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/screens/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -71,7 +72,14 @@ class LoginScreen extends StatelessWidget {
                 'Criar conta',
                 style: TextStyle(fontSize: 18),
               ),
-              onPressed: (){},
+              onPressed: (){
+                //ao clicar em criar conta abre a tela de criar conta
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context)=>SignUpScreen())
+                );
+              },
+              color: Colors.blue,
+              textColor: Colors.white,
             ),
           )
         ],
