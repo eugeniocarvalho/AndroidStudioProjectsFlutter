@@ -14,6 +14,7 @@ class LoginScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body:
+        //tudo que estiver abaixo no scopedModelDescedant vai ter acesso ao model
             ScopedModelDescendant<UserModel>(builder: (context, child, model) {
           if (model.isLoading)
             return Center(child: CircularProgressIndicator());
