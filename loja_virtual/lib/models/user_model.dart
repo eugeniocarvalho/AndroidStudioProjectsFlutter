@@ -20,7 +20,7 @@ class UserModel extends Model {
   void signUp(
       {@required Map<String, dynamic> userData,
       @required String pass,
-      @required VoidCallback onSucess,
+      @required VoidCallback onSuccess,
       @required VoidCallback onFail}) {
     isLoading = true;
     notifyListeners();
@@ -33,7 +33,7 @@ class UserModel extends Model {
 
       await _saveUserData(userData);
 
-      onSucess();
+      onSuccess();
       isLoading = false;
       notifyListeners();
     }).catchError((deuRuim) {
@@ -54,11 +54,22 @@ class UserModel extends Model {
     notifyListeners();
   }
 
+  void signOut() async {
+    await _auth.signOut();
+
+    userData = Map();
+    firebaseUser = null;
+
+    notifyListeners();
+  }
+
   void recoverPass() {
 
   }
 
-  bool isLoggedIn() {}
+  bool isLoggedIn() {
+    return firebaseUser != null;
+  }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async{
     //salvando os dados do usuario aqui na classe
