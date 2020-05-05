@@ -79,13 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           .of(context)
                           .primaryColor,
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {}
-
-                        model.signIn(
-                            email: _emailController.text,
-                            pass: _passController.text,
-                            onSuccess: onSuccess,
-                            onFail: onFail);
+                        if (_formKey.currentState.validate()) {
+                          model.signIn(
+                              email: _emailController.text,
+                              pass: _passController.text,
+                              onSuccess: onSuccess,
+                              onFail: onFail);
+                        }
                       },
                     ),
                   ),
