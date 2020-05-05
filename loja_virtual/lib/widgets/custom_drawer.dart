@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Olá, ${!model.isLoggedIn() ? '' : model.userData['name']}',
+                                "Olá, ${!model.isLoggedIn() ? "" : model.userData["name"]}",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -77,8 +77,6 @@ class CustomDrawer extends StatelessWidget {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) => LoginScreen())
                                     );
-                                  else
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
 
                                   model.signOut();
                                 },

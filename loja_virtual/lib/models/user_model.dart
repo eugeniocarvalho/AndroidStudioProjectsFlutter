@@ -58,7 +58,9 @@ class UserModel extends Model {
     isLoading = true;
     notifyListeners();
 
-    _auth.signInWithEmailAndPassword(email: email, password: pass).then((user) async{
+    _auth
+        .signInWithEmailAndPassword(email: email, password: pass)
+        .then((user) async {
       firebaseUser = user;
 
       //pra carregar os dados do user assim que loga
@@ -67,6 +69,7 @@ class UserModel extends Model {
       onSuccess();
       isLoading = false;
       notifyListeners();
+
     }).catchError((e) {
       onFail();
       isLoading = false;
@@ -83,7 +86,9 @@ class UserModel extends Model {
     notifyListeners();
   }
 
-  void recoverPass() {}
+  void recoverPass(String email) {
+    _auth.sendPasswordResetEmail(email: email);
+  }
 
   bool isLoggedIn() {
     return firebaseUser != null;
@@ -100,17 +105,19 @@ class UserModel extends Model {
   }
 
   Future<Null> _loadCurrentUser() async {
-    if (firebaseUser == null) firebaseUser = await _auth.currentUser();
+    if (firebaseUser == null)
+      firebaseUser = await _auth.currentUser();
 
     if (firebaseUser != null) {
-      DocumentSnapshot docUser = await Firestore.instance
-          .collection('users')
-          .document(firebaseUser.uid)
-          .get();
+      if (userData["name"] == null) {
+        DocumentSnapshot docUser = await Firestore.instance
+            .collection("users")
+            .document(firebaseUser.uid)
+            .get();
 
-      userData = docUser.data;
+        userData = docUser.data;
+      }
     }
-
     notifyListeners();
   }
 }

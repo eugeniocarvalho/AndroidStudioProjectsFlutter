@@ -58,7 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       child: Text(
                         'Esqueci minha senha',
                         textAlign: TextAlign.right,
@@ -83,8 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           model.signIn(
                               email: _emailController.text,
                               pass: _passController.text,
-                              onSuccess: onSuccess,
-                              onFail: onFail);
+                              onSuccess: _onSuccess,
+                              onFail: _onFail);
                         }
                       },
                     ),
@@ -111,11 +113,11 @@ class _LoginScreenState extends State<LoginScreen> {
         }));
   }
 
-  void onSuccess() {
+  void _onSuccess() {
     Navigator.of(context).pop();
   }
 
-  void onFail() {
+  void _onFail() {
     _scaffoldKey.currentState.showSnackBar(
         SnackBar(content: Text('Falha ao tentar entrar'),
           backgroundColor: Colors.redAccent,
