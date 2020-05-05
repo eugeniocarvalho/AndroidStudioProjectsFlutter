@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/user_model.dart';
-import 'package:lojavirtual/screens/home_screen.dart';
 import 'package:lojavirtual/screens/login_screen.dart';
 import 'package:lojavirtual/tiles/drawer_tile.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -49,22 +48,22 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       left: 0,
                       bottom: 0,
-                      //coloquei o scoped aqui porque as unicas coisas que vou
-                      // alterar sao o olá e o entre ou cadastre-se
                       child: ScopedModelDescendant<UserModel>(
                         builder: (context, child, model){
+                          print(model.isLoggedIn());
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "Olá, ${!model.isLoggedIn() ? "" : model.userData["name"]}",
+                                'Olá, ${!model.isLoggedIn() ? '' : model.userData['name']}',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               GestureDetector(
-                                child: Text(!model.isLoggedIn() ?
+                                child: Text(
+                                  !model.isLoggedIn() ?
                                   'Entre ou cadastre-se >' : 'Sair',
                                   style: TextStyle(
                                       color: Colors.lightBlueAccent,
@@ -72,19 +71,21 @@ class CustomDrawer extends StatelessWidget {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 onTap: () {
-                                  //Botão pra ir para tela de logar e cadastrar
                                   if (!model.isLoggedIn())
+                                    //Botão pra ir para tela de logar e cadastrar
                                     Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => LoginScreen())
-                                    );
+                                      MaterialPageRoute(builder: (context) => LoginScreen())
+                                  );
+                                  else
+                                    model.signOut();
 
-                                  model.signOut();
                                 },
                               )
                             ],
                           );
                         },
-                      ),
+
+                      )
                     )
                   ],
                 ),

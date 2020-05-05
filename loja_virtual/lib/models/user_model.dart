@@ -18,6 +18,7 @@ class UserModel extends Model {
   bool isLoading = false;
 
   //carregar os dados do usuario assim que o app abre
+  /*
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
@@ -25,6 +26,8 @@ class UserModel extends Model {
     _loadCurrentUser();
   }
 
+
+   */
   void signUp(
       {@required Map<String, dynamic> userData,
       @required String pass,
@@ -35,9 +38,11 @@ class UserModel extends Model {
 
     _auth
         .createUserWithEmailAndPassword(
-            email: userData['email'], password: pass)
+            email: userData["email"], password: pass)
         .then((user) async {
       firebaseUser = user;
+
+      await _saveUserData(userData);
 
       onSuccess();
       isLoading = false;
@@ -69,7 +74,6 @@ class UserModel extends Model {
       onSuccess();
       isLoading = false;
       notifyListeners();
-
     }).catchError((e) {
       onFail();
       isLoading = false;
@@ -99,14 +103,13 @@ class UserModel extends Model {
     this.userData = userData;
     //salvando no firebase para que possa usar no futuro
     await Firestore.instance
-        .collection('users')
+        .collection("users")
         .document(firebaseUser.uid)
         .setData(userData);
   }
 
   Future<Null> _loadCurrentUser() async {
-    if (firebaseUser == null)
-      firebaseUser = await _auth.currentUser();
+    if (firebaseUser == null) firebaseUser = await _auth.currentUser();
 
     if (firebaseUser != null) {
       if (userData["name"] == null) {

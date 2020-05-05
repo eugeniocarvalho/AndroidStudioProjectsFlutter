@@ -100,8 +100,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           model.signUp(
                               userData: userData,
                               pass: _passController.text,
-                              onSuccess: onSuccess,
-                              onFail: onFail);
+                              onSuccess: _onSuccess,
+                              onFail: _onFail);
                         }
                       },
                     ),
@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void onSuccess() {
+  void _onSuccess() {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text('Usuário criado com sucesso!'),
@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  void onFail() {
+  void _onFail() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Falha ao tentar cadastrar'),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 1),
