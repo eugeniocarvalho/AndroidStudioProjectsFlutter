@@ -18,16 +18,15 @@ class UserModel extends Model {
   bool isLoading = false;
 
   //carregar os dados do usuario assim que o app abre
-  /*
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
 
-    _loadCurrentUser();
+    if (firebaseUser != null)
+     _loadCurrentUser();
   }
 
 
-   */
   void signUp(
       {@required Map<String, dynamic> userData,
       @required String pass,

@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           _scaffoldKey.currentState.showSnackBar(
                               SnackBar(content: Text('Confira seu e-mail'),
-                                backgroundColor: Colors.redAccent,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 duration: Duration(seconds: 2),
                               )
                           );
