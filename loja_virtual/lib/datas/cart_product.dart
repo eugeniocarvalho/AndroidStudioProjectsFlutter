@@ -9,6 +9,8 @@ class CartProduct {
   //os dados dos produtos dos carrinhos
   ProductData productData;
 
+  CartProduct();
+
   //vai pegar todos os itens do carrinho e transformar num cart_product
   CartProduct.fromDocument(DocumentSnapshot document){
     cid = document.documentID;
@@ -24,7 +26,7 @@ class CartProduct {
       'pid' : pid,
       'quantity': quantity,
       'size': size,
-      'product': productData.toResumedMap()
+      //'product': productData.toResumedMap()
     };
   }
 }
