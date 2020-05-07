@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/cart_model.dart';
 import 'package:lojavirtual/models/user_model.dart';
 import 'package:lojavirtual/screens/login_screen.dart';
+import 'package:lojavirtual/tiles/cart_tile.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CartScreen extends StatelessWidget {
@@ -58,14 +59,25 @@ class CartScreen extends StatelessWidget {
               ],
             ),
           );
-          else if (model.products == null || model.products.length == 0)
-            return Center(
-              child: Text('Nenhum item adicionado no carrinho',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center
-              ),
-            );
-
-        return null;
+        else if (model.products == null || model.products.length == 0)
+          return Center(
+            child: Text('Nenhum item adicionado no carrinho',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
+          );
+        else
+          return ListView(
+            children: <Widget>[
+              Column(
+                //isso é pra nao colocar tudo manualmente
+                //esta mapeando o produtos da lista
+                children: model.products.map((products) {
+                  //esta trannsformando cada um dos produtos em um cartTile que é o card
+                  return CartTile(products);
+                }).toList(),
+              )
+            ],
+          );
       }),
     );
   }
