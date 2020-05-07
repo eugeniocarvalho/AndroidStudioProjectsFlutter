@@ -26,7 +26,6 @@ class UserModel extends Model {
   void addListener(VoidCallback listener) {
     super.addListener(listener);
 
-    if (firebaseUser != null)
      _loadCurrentUser();
   }
 

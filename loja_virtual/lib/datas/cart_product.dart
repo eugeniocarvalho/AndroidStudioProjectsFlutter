@@ -12,7 +12,7 @@ class CartProduct {
   CartProduct();
 
   //vai pegar todos os itens do carrinho e transformar num cart_product
-  CartProduct.fromDocument(DocumentSnapshot document){
+  CartProduct.fromDocument(DocumentSnapshot document) {
     cid = document.documentID;
     category = document.data['category'];
     pid = document.data['pid'];
@@ -20,7 +20,7 @@ class CartProduct {
     size = document.data['size'];
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'category': category,
       'pid' : pid,
