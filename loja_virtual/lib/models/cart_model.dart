@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lojavirtual/datas/cart_product.dart';
 import 'package:lojavirtual/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -13,6 +14,10 @@ class CartModel extends Model {
   //quando criar o cart, passa o usuario atual, para
   // armazenar os dados no usuario atual
   CartModel(this.user);
+
+  //serve pra acessar o cartModel de qualquer lugar do app
+  static CartModel of(BuildContext context) =>
+      ScopedModel.of<CartModel>(context);
 
   void addCartItem(CartProduct cartProduct) {
     products.add(cartProduct);
