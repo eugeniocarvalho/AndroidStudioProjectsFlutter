@@ -17,6 +17,10 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
+  //serve pra ter acesso ao userModel de qualquer lugar do app
+  static UserModel of(BuildContext context) =>
+      ScopedModel.of<UserModel>(context);
+
   //carregar os dados do usuario assim que o app abre
   @override
   void addListener(VoidCallback listener) {
