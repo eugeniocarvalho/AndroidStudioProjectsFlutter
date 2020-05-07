@@ -16,18 +16,26 @@ class MyApp extends StatelessWidget {
         //tudo que estiver abaixo no scopedModel vai ter acesso ao Usermodel e
         // vai ser modificado, caso tenha alguma coisa aconteça no userMode
         model: UserModel(),
-        //scoped do carrinho é abaixo do scoped do usuario porque o
-        // carrinho precisa ter acesso ao usuario atual
-        child: ScopedModel<CartModel>(
-          model: CartModel(),
-          child: MaterialApp(
-            title: "Flutter's Clothing",
-            theme: ThemeData(
-                primarySwatch: Colors.lightBlue,
-                primaryColor: Color.fromARGB(255, 4, 125, 141)),
-            debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
-          ),
-        ));
+        child: ScopedModelDescendant<UserModel>(
+            // o model abaixo, é o UserModel ali de cima que vai ser passado
+            // como parametro no CartModel(model), assim o cartModel tem acesso
+            // ao user atual e sempre que mudar de user, o app é reconstruido as
+            // partes individuais de cada user
+            builder: (context, child, model){
+              //scoped do carrinho é abaixo do scoped do usuario porque o
+              // carrinho precisa ter acesso ao usuario atual
+              return ScopedModel<CartModel>(
+                model: CartModel(model),
+                child: MaterialApp(
+                  title: "Flutter's Clothing",
+                  theme: ThemeData(
+                      primarySwatch: Colors.lightBlue,
+                      primaryColor: Color.fromARGB(255, 4, 125, 141)),
+                  debugShowCheckedModeBanner: false,
+                  home: HomeScreen(),
+                ),
+              );
+            })
+    );
   }
 }
