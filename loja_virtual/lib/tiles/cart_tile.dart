@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/datas/cart_product.dart';
 import 'package:lojavirtual/datas/product_data.dart';
+import 'package:lojavirtual/models/cart_model.dart';
 
 class CartTile extends StatelessWidget {
   final CartProduct cartProduct;
@@ -29,42 +30,43 @@ class CartTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    cartProduct.productData.title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18
-                    )
-                  ),
+                  Text(cartProduct.productData.title,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
                   Text(
                     'Tamanho ${cartProduct.size}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300, fontSize: 18
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
                   ),
                   Text(
                     'R\$ ${cartProduct.productData.price.toStringAsFixed(2)}',
                     style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),
+                        color: Colors.green,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(
-                            Icons.remove),
-                             onPressed: (){}
+                        color: Theme.of(context).primaryColor,
+                        icon: Icon(Icons.remove),
+                        onPressed: cartProduct.quantity > 1
+                            ? () {
+                                CartModel.of(context).decProduct(cartProduct);
+                              }
+                            : null,
                       ),
                       Text(cartProduct.quantity.toString()),
                       IconButton(
-                          icon: Icon(
-                              Icons.add),
-                              onPressed: (){}
+                        color: Theme.of(context).primaryColor,
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          CartModel.of(context).incProduct(cartProduct);
+                        },
                       ),
-                      IconButton(icon: Icon(Icons.delete), onPressed: (){})
+                      IconButton(icon: Icon(Icons.delete), onPressed: () {
+                        CartModel.of(context).removeCartItem(cartProduct);
+                      })
                     ],
                   ),
                 ],
@@ -79,9 +81,12 @@ class CartTile extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: cartProduct.productData == null
           ? FutureBuilder<DocumentSnapshot>(
-              future: Firestore.instance.collection('products')
-                  .document(cartProduct.category).collection('itens')
-                  .document(cartProduct.pid).get(),
+              future: Firestore.instance
+                  .collection('products')
+                  .document(cartProduct.category)
+                  .collection('itens')
+                  .document(cartProduct.pid)
+                  .get(),
               //esse snapshot é o dado que acabamos de obter do BD
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
