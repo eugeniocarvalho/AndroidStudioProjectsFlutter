@@ -15,7 +15,10 @@ class CartModel extends Model {
 
   //quando criar o cart, passa o usuario atual, para
   // armazenar os dados no usuario atual
-  CartModel(this.user);
+  CartModel(this.user){
+    if (user.isLoggedIn())
+      _loadCartItems();
+  }
 
   //serve pra acessar o cartModel de qualquer lugar do app
   static CartModel of(BuildContext context) =>
@@ -38,9 +41,51 @@ class CartModel extends Model {
   }
 
   void removeCartItem(CartProduct cartProduct) {
-    Firestore.instance.collection('users').document(user.firebaseUser.uid).collection('cart').document(cartProduct.cid).delete();
+    Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .document(cartProduct.cid)
+        .delete();
 
     products.remove(cartProduct);
+    notifyListeners();
+  }
+
+  void incProduct(CartProduct cartProduct) {
+    cartProduct.quantity++;
+
+    Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .document(cartProduct.cid)
+        .updateData(cartProduct.toMap());
+
+    notifyListeners();
+  }
+
+  void decProduct(CartProduct cartProduct) {
+    cartProduct.quantity--;
+
+    Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .document(cartProduct.cid)
+        .updateData(cartProduct.toMap());
+
+    notifyListeners();
+  }
+
+  void _loadCartItems() async{
+    QuerySnapshot query = await Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart').getDocuments();
+
+    //transformando cada documento pego do firebase em um cartproduct e retornando uma lista com todos na lista de produtos
+    products = query.documents.map((doc) => CartProduct.fromDocument((doc))).toList();
     notifyListeners();
   }
 }
