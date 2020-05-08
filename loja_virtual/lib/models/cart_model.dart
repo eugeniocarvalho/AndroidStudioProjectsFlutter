@@ -13,6 +13,9 @@ class CartModel extends Model {
 
   bool isLoading = false;
 
+  String couponCode;
+  int couponPercemtage = 0;
+
   //quando criar o cart, passa o usuario atual, para
   // armazenar os dados no usuario atual
   CartModel(this.user){
@@ -87,5 +90,10 @@ class CartModel extends Model {
     //transformando cada documento pego do firebase em um cartproduct e retornando uma lista com todos na lista de produtos
     products = query.documents.map((doc) => CartProduct.fromDocument((doc))).toList();
     notifyListeners();
+  }
+
+  void setCoupon(String couponCode, int percentage){
+    this.couponCode = couponCode;
+    this.couponPercemtage = percentage;
   }
 }
