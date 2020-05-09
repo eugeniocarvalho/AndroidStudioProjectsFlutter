@@ -60,7 +60,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Total', style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text('R\$ ${(price + discount + ship).toStringAsFixed(2)}', style: TextStyle(
+                    Text('R\$ ${(price - discount + ship).toStringAsFixed(2)}', style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                         fontSize: 18
