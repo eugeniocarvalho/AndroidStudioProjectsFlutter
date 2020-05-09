@@ -17,8 +17,12 @@ class CartPrice extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         child:
-            ScopedModelDescendant<CartModel>(builder: (context, child, model) {
-          return Column(
+          ScopedModelDescendant<CartModel>(builder: (context, child, model) {
+            double price = model.getProductsPrice();
+            double discount = model.getDiscount();
+            double ship = model.getShipPrice();
+
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
@@ -31,7 +35,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Subtotal'),
-                    Text('R\$ 0.00'),
+                    Text('R\$ ${price.toStringAsFixed(2)}'),
                   ],
                 ),
                 Divider(),
@@ -39,7 +43,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Desconto'),
-                    Text('R\$ 0.00'),
+                    Text('R\$ -${discount.toStringAsFixed(2)}'),
                   ],
                 ),
                 Divider(),
@@ -47,7 +51,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Entrega'),
-                    Text('R\$ 0.00'),
+                    Text('R\$ ${ship.toStringAsFixed(2)}'),
                   ],
                 ),
                 Divider(),
@@ -56,7 +60,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Total', style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text('R\$ 0.00', style: TextStyle(
+                    Text('R\$ ${(price + discount + ship).toStringAsFixed(2)}', style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                         fontSize: 18
