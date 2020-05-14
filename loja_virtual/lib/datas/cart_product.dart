@@ -26,7 +26,10 @@ class CartProduct {
       'pid' : pid,
       'quantity': quantity,
       'size': size,
-      //'product': productData.toResumedMap()
+      //salvando alguns dados do produto, quando um user comprar
+      // ele vai salvar os dados atuais do produto, pra caso ele sofra alguma
+      // alteração depois nao impactar nesse pedido feito antes
+      'product': productData.toResumedMap()
     };
   }
 }
