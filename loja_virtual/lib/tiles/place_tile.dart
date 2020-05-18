@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class PlaceTile extends StatelessWidget {
 
@@ -26,9 +27,11 @@ class PlaceTile extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   snapshot.data['title'],
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18),
@@ -38,6 +41,23 @@ class PlaceTile extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FlatButton(
+                child: Text('Ver no Mapa'),
+                textColor: Colors.blue,
+                padding: EdgeInsets.zero,
+                onPressed: (){}
+              ),
+              FlatButton(
+                child: Text('Ligar'),
+                textColor: Colors.blue,
+                padding: EdgeInsets.zero,
+                onPressed: (){},
+              )
+            ],
           )
         ],
       ),
