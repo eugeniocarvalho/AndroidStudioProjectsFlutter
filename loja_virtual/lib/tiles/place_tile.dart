@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlaceTile extends StatelessWidget {
 
@@ -49,13 +50,17 @@ class PlaceTile extends StatelessWidget {
                 child: Text('Ver no Mapa'),
                 textColor: Colors.blue,
                 padding: EdgeInsets.zero,
-                onPressed: (){}
+                onPressed: (){
+                  launch('https://www.google.com/maps/search/?api=1&query=${snapshot.data['lat']},${snapshot.data['long']}');
+                }
               ),
               FlatButton(
                 child: Text('Ligar'),
                 textColor: Colors.blue,
                 padding: EdgeInsets.zero,
-                onPressed: (){},
+                onPressed: (){
+                  launch('tel:${snapshot.data['phone']}');
+                },
               )
             ],
           )
