@@ -1,4 +1,3 @@
-import 'package:calculator/calculator_grid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -10,7 +9,6 @@ class Calculator extends StatefulWidget {
   _CalculatorState createState() => _CalculatorState();
 }
 
-
 class _CalculatorState extends State<Calculator> {
   String valor = '0', expression = '';
 
@@ -18,50 +16,61 @@ class _CalculatorState extends State<Calculator> {
     setState(() {
       if (op == 'AC') {
         _reset();
-
-        return;
-      }
-
-      if (op == '⌫') {
-        if (expression.length > 0)
-        _remove();
-
-        return;
-      }
-
-      if (op == '='){
+      } else if (op == '⌫') {
+        if (expression.length > 0) _remove();
+      } else if (op == '=') {
         setState(() {
           valor = calcString(expression).toString();
         });
-        return;
-      }
-
-      expression += op;
+      } else
+        setState(() {
+          expression += op;
+        });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Calculator'),
+      ),
       body: Padding(
-        padding: EdgeInsets.only(bottom: 20, right: 16),
+        padding: EdgeInsets.only(bottom: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Container(
-              height: 200,
-            ),
-            Text(
-              '$expression',
-              textAlign: TextAlign.end,
-              style: TextStyle(fontSize: 50),
+                 height: 150,
+                ),
+            Expanded(
+              flex: 1,
+              child: SingleChildScrollView(
+                reverse: true,
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  '$expression',
+                  textAlign: TextAlign.end,
+                  style: TextStyle(fontSize: 30),
+                  maxLines: 1,
+                ),
+              ),
             ),
             Divider(),
-            Text(
-              '$valor',
-              textAlign: TextAlign.end,
-              style: TextStyle(fontSize: 50),
+            Expanded(
+              flex: 1,
+              child: SingleChildScrollView(
+                reverse: true,
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  '$valor',
+                  textAlign: TextAlign.end,
+                  style: TextStyle(fontSize: 30),
+                  maxLines: 1,
+                ),
+              )
             ),
             Divider(color: Colors.black),
             Row(
@@ -132,12 +141,12 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  void _reset(){
+  void _reset() {
     expression = '';
     valor = '0';
   }
 
-  void _remove(){
+  void _remove() {
     expression = expression.substring(0, expression.length - 1);
   }
 
@@ -145,10 +154,10 @@ class _CalculatorState extends State<Calculator> {
     final builder = ExpressionBuilder();
     builder.group()
       ..primitive((pattern('+-').optional() &
-      digit().plus() &
-      (char('.') & digit().plus()).optional() &
-      (pattern('eE') & pattern('+-').optional() & digit().plus())
-          .optional())
+              digit().plus() &
+              (char('.') & digit().plus()).optional() &
+              (pattern('eE') & pattern('+-').optional() & digit().plus())
+                  .optional())
           .flatten('number expected')
           .trim()
           .map(num.tryParse))
@@ -162,8 +171,7 @@ class _CalculatorState extends State<Calculator> {
     builder.group()
       ..left(char('+').trim(), (a, op, b) => a + b)
       ..left(char('-').trim(), (a, op, b) => a - b);
-    builder.group()
-      ..left(char('%').trim(), (a, op, b) => a % b);
+    builder.group()..left(char('%').trim(), (a, op, b) => a % b);
     return builder.build().end();
   }
 
