@@ -23,12 +23,20 @@
       <excludeFolder url="file://$MODULE_DIR$/app_cotacao/build" />
       <excludeFolder url="file://$MODULE_DIR$/calculadora_imc/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/calculadora_imc/build" />
+      <excludeFolder url="file://$MODULE_DIR$/calculator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/calculator/build" />
+      <excludeFolder url="file://$MODULE_DIR$/chat/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/chat/build" />
       <excludeFolder url="file://$MODULE_DIR$/contador_pessoas/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/contador_pessoas/build" />
       <excludeFolder url="file://$MODULE_DIR$/cotacao/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/cotacao/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flare_test/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flare_test/build" />
       <excludeFolder url="file://$MODULE_DIR$/lista_de_tarefas/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/lista_de_tarefas/build" />
+      <excludeFolder url="file://$MODULE_DIR$/loja_virtual/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/loja_virtual/build" />
       <excludeFolder url="file://$MODULE_DIR$/serachenginegiphy/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/serachenginegiphy/build" />
     </content>
